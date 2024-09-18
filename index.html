@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>E-Ticket Booking</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+    </head>
+    <body class="bg-gray-100">
+        <div class="min-h-screen flex items-center justify-center">
+            <div class="bg-white shadow-lg rounded-lg max-w-lg w-full p-8">
+                <h2
+                    class="text-2xl font-bold text-center mb-6 text-gray-800 underline underline-offset-4"
+                >
+                    Book Your E-Ticket
+                </h2>
+
+                <!-- Ticket Booking Form -->
+                <form id="ticketForm">
+                    <div class="mb-4">
+                        <label
+                            class="block text-gray-700 font-semibold mb-2"
+                            for="name"
+                            >Full Name</label
+                        >
+                        <input
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            id="name"
+                            type="text"
+                            placeholder="Enter your full name"
+                            required
+                        />
+                    </div>
+
+                    <div class="mb-4">
+                        <label
+                            class="block text-gray-700 font-semibold mb-2"
+                            for="email"
+                            >Email Address</label
+                        >
+                        <input
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            id="email"
+                            type="email"
+                            placeholder="Enter your email address"
+                        />
+                    </div>
+
+                    <!-- Location Information Section -->
+                    <div class="mb-4">
+                        <label
+                            class="block text-gray-700 font-semibold mb-2"
+                            for="from"
+                            >From</label
+                        >
+                        <select
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            id="from"
+                            required
+                        >
+                            <option value="" class="hidden">
+                                Select departure location
+                            </option>
+                            <option value="Rangpur City">Rangpur City</option>
+                            <option value="Dinajpur">Dinajpur</option>
+                            <option value="Kurigram">Kurigram</option>
+                            <option value="Rajshahi">Rajshahi</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-4">
+                        <label
+                            class="block text-gray-700 font-semibold mb-2"
+                            for="to"
+                            >To</label
+                        >
+                        <select
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            id="to"
+                            required
+                        >
+                            <option value="" class="hidden">
+                                Select destination location
+                            </option>
+                            <option value="Dhaka (Gabtoli)">
+                                Dhaka (Gabtoli)
+                            </option>
+                            <option value="Dhaka (Mohakhali)">
+                                Dhaka (Mohakhali)
+                            </option>
+                            <option value="Chittagong">Chittagong</option>
+                            <option value="Cox's Bazar">Cox's Bazar</option>
+                        </select>
+                    </div>
+
+                    <!-- Date and Time Information Section -->
+                    <div class="mb-4">
+                        <label
+                            class="block text-gray-700 font-semibold mb-2"
+                            for="date"
+                            >Date of Journey</label
+                        >
+                        <input
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            id="date"
+                            type="date"
+                            required
+                        />
+                    </div>
+
+                    <div class="mb-4">
+                        <label
+                            class="block text-gray-700 font-semibold mb-2"
+                            for="time"
+                            >Time of Journey</label
+                        >
+                        <input
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            id="time"
+                            type="time"
+                            required
+                        />
+                    </div>
+
+                    <!-- Ticket Information Section -->
+                    <div class="mb-4">
+                        <label
+                            class="block text-gray-700 font-semibold mb-2"
+                            for="ticketType"
+                            >Ticket Type</label
+                        >
+                        <select
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            id="ticketType"
+                            required
+                        >
+                            <option value="" class="hidden">
+                                Select ticket type
+                            </option>
+                            <option value="Economy">Economy</option>
+                            <option value="Business">Business</option>
+                            <option value="FirstClass">First Class</option>
+                        </select>
+                    </div>
+
+                    <!-- Price Field -->
+                    <div class="mb-4">
+                        <label
+                            class="block text-gray-700 font-semibold mb-2"
+                            for="price"
+                            >Price (৳)</label
+                        >
+                        <input
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            id="price"
+                            type="number"
+                            step="0.01"
+                            placeholder="Enter ticket price"
+                            required
+                        />
+                    </div>
+
+                    <!-- Payment Information Section -->
+                    <div class="mb-6">
+                        <label
+                            class="block text-gray-700 font-semibold mb-2"
+                            for="paymentMethod"
+                            >Payment Method</label
+                        >
+                        <select
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            id="paymentMethod"
+                            required
+                        >
+                            <option value="" class="hidden">
+                                Select payment method
+                            </option>
+                            <option value="Cash">Cash</option>
+                            <option value="Mobile Banking">
+                                Mobile Banking
+                            </option>
+                            <option value="Credit Card">Credit Card</option>
+                        </select>
+                    </div>
+
+                    <!-- Submit and Clear Buttons -->
+                    <div class="flex space-x-4">
+                        <button
+                            type="button"
+                            id="clearBtn"
+                            class="w-full bg-red-500 text-white py-2 px-4 rounded-lg font-semibold hover:bg-red-600 transition duration-300 ease-in-out"
+                        >
+                            Clear
+                        </button>
+                        <button
+                            type="submit"
+                            class="w-full bg-blue-500 text-white py-2 px-4 rounded-lg font-semibold hover:bg-blue-600 transition duration-300 ease-in-out"
+                        >
+                            Book Ticket
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Modal Section -->
+        <dialog
+            id="checkoutModal"
+            class="p-8 bg-white rounded-lg shadow-lg max-w-md w-full"
+        >
+            <h3
+                class="text-xl font-bold mb-4 text-gray-800 underline underline-offset-4"
+            >
+                Checkout Information
+            </h3>
+            <div id="checkoutInfo" class="mb-6">
+                <!-- Checkout Information will be populated here -->
+            </div>
+            <div class="flex justify-center space-x-4">
+                <button
+                    id="closeBtn"
+                    class="bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-600"
+                >
+                    Close
+                </button>
+                <button
+                    id="reEditBtn"
+                    class="bg-yellow-500 text-white py-2 px-4 rounded-lg hover:bg-yellow-600"
+                >
+                    Re-edit
+                </button>
+                <button
+                    id="printBtn"
+                    class="bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600"
+                >
+                    Print
+                </button>
+            </div>
+        </dialog>
+
+        <script>
+            const ticketForm = document.getElementById("ticketForm");
+            const modal = document.getElementById("checkoutModal");
+            const checkoutInfo = document.getElementById("checkoutInfo");
+            const printBtn = document.getElementById("printBtn");
+            const closeBtn = document.getElementById("closeBtn");
+            const reEditBtn = document.getElementById("reEditBtn");
+            const clearBtn = document.getElementById("clearBtn");
+
+            // Form Submit Event Listener
+            ticketForm.addEventListener("submit", (e) => {
+                e.preventDefault(); // Prevents form submission
+
+                const name = document.getElementById("name").value;
+                const email = document.getElementById("email").value;
+                const from = document.getElementById("from").value;
+                const to = document.getElementById("to").value;
+                const date = document.getElementById("date").value;
+                const time = document.getElementById("time").value;
+                const ticketType = document.getElementById("ticketType").value;
+                const price = document.getElementById("price").value;
+                const paymentMethod =
+                    document.getElementById("paymentMethod").value;
+
+                // Populate Checkout Info in the Modal
+                checkoutInfo.innerHTML = `
+        <p><strong>Name:</strong> ${name}</p>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>From:</strong> ${from}</p>
+        <p><strong>To:</strong> ${to}</p>
+        <p><strong>Date of Journey:</strong> ${date}</p>
+        <p><strong>Time of Journey:</strong> ${time}</p>
+        <p><strong>Ticket Type:</strong> ${ticketType}</p>
+        <p><strong>Price:</strong> ৳${price}</p>
+        <p><strong>Payment Method:</strong> ${paymentMethod}</p>
+      `;
+
+                // Show the modal
+                modal.showModal();
+            });
+
+            // Close Modal and Reset Form
+            closeBtn.addEventListener("click", () => {
+                modal.close();
+                ticketForm.reset(); // Reset the form
+            });
+
+            // Re-edit Form
+            reEditBtn.addEventListener("click", () => {
+                modal.close();
+            });
+
+            // Print Ticket
+            printBtn.addEventListener("click", () => {
+                window.print();
+            });
+
+            // Clear Form
+            clearBtn.addEventListener("click", () => {
+                ticketForm.reset();
+            });
+        </script>
+    </body>
+</html>
