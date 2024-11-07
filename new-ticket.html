@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Book your Ticket - 6CST/A2 Project</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script src="scripts/new-ticket.js" defer></script>
+
+        <style>
+            .seat-row {
+                display: flex;
+                gap: 12px;
+                align-items: center;
+            }
+            .seat-row-code {
+                font-weight: 500;
+                width: 20px;
+                font-size: 1.125rem;
+            }
+
+            .seats {
+                display: flex;
+                gap: 25px;
+                align-items: center;
+            }
+
+            .seat {
+                background-color: #f2f2f2;
+                padding-block: 6px;
+                width: 60px;
+                color: rgb(97, 97, 97);
+                font-weight: 500;
+                border-radius: 6px;
+            }
+
+            .seat:active:not(:disabled) {
+                transform: scale(0.9);
+                transition-property: transform;
+                transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+                transition-duration: 200ms;
+            }
+
+            .selected-seat {
+                background-color: #1dd100;
+                color: #f7f8f8 !important;
+            }
+
+            .already-purchased {
+                background-color: black;
+                color: white;
+            }
+        </style>
+    </head>
+    <body
+        class="flex justify-center items-center min-h-screen bg-gray-100 py-5 px-4"
+    >
+        <div
+            class="container p-4 rounded-xl shadow-lg bg-white max-w-lg w-full hidden"
+        >
+            <!-- Search for Locations -->
+            <form onsubmit="this.preventDefault()" id="findTickets">
+                <h3
+                    class="text-2xl font-bold text-center mb-6 text-gray-800 underline underline-offset-4"
+                >
+                    Find your Tickets
+                </h3>
+                <div class="mb-4">
+                    <label
+                        class="block text-gray-700 font-semibold mb-2"
+                        for="name"
+                        >Choose your Destination</label
+                    >
+                    <div class="flex justify-center gap-4">
+                        <select
+                            class="px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            id="from"
+                            title="From where you will depart"
+                            required
+                        >
+                            <option value="" class="hidden">
+                                Select departure location
+                            </option>
+                            <option value="Rangpur City">Rangpur City</option>
+                            <option value="Dinajpur">Dinajpur</option>
+                            <option value="Kurigram">Kurigram</option>
+                            <option value="Rajshahi">Rajshahi</option>
+                        </select>
+
+                        <select
+                            class="px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            id="to"
+                            title="Your destination"
+                            required
+                        >
+                            <option value="" class="hidden">
+                                Select destination location
+                            </option>
+                            <option value="Dhaka (Gabtoli)">
+                                Dhaka (Gabtoli)
+                            </option>
+                            <option value="Dhaka (Mohakhali)">
+                                Dhaka (Mohakhali)
+                            </option>
+                            <option value="Chittagong">Chittagong</option>
+                            <option value="Cox's Bazar">Cox's Bazar</option>
+                        </select>
+
+                        <button
+                            type="button"
+                            class="outline-none border-none px-4 bg-[dodgerBlue] text-white rounded-lg font-medium active:scale-95 transition-transform text-center"
+                        >
+                            Find
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- Purchasing Ticket-->
+        <div
+            id="purchaseTicketContainer"
+            class="md:min-w-lg max-w-3xl md:w-full flex flex-col items-center"
+        >
+            <div class="p-4 rounded-xl shadow-lg bg-white w-full mb-5">
+                <div class="bg-[#F7F8F8] p-3 rounded-md mb-6">
+                    <h4
+                        class="text-xl font-semibold underline underline-offset-4 mb-3"
+                    >
+                        Bus Info
+                    </h4>
+
+                    <div
+                        class="pb-3 mb-3 border-b border-dashed border-[#03071233] flex items-center justify-between"
+                    >
+                        <p>Route</p>
+                        <p class="font-bold font-raleway" id="route">
+                            Rangpur - Dhaka
+                        </p>
+                    </div>
+                    <div
+                        class="pb-3 mb-3 border-b border-dashed border-[#03071233] flex items-center justify-between"
+                    >
+                        <p>Departure Date</p>
+                        <p class="font-bold font-raleway" id="date"></p>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <p>Departure Time</p>
+                        <p class="font-bold font-raleway" id="time">9:00 PM</p>
+                    </div>
+                </div>
+            </div>
+
+            <div
+                class="px-8 py-4 rounded-xl shadow-lg bg-white flex flex-col md:flex-row gap-10 md:gap-0"
+            >
+                <div
+                    class="md:border-r border-dashed border-[#03071233] md:mr-6 md:pr-6"
+                >
+                    <h4
+                        class="text-xl font-semibold underline underline-offset-4 mb-5"
+                    >
+                        Select your Seat
+                    </h4>
+
+                    <!-- Seats -->
+                    <div class="seats-container w-full space-y-3">
+                        <div class="seat-row">
+                            <div class="seat-row-code">A</div>
+                            <div class="seats">
+                                <div>
+                                    <button class="seat">A1</button>
+                                    <button class="seat">A2</button>
+                                </div>
+                                <div>
+                                    <button class="seat">A3</button>
+                                    <button class="seat">A4</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="seat-row">
+                            <div class="seat-row-code">B</div>
+                            <div class="seats">
+                                <div>
+                                    <button class="seat">B1</button>
+                                    <button class="seat">B2</button>
+                                </div>
+                                <div>
+                                    <button class="seat">B3</button>
+                                    <button class="seat">B4</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="seat-row">
+                            <div class="seat-row-code">C</div>
+                            <div class="seats">
+                                <div>
+                                    <button class="seat">C1</button>
+                                    <button class="seat">C2</button>
+                                </div>
+                                <div>
+                                    <button class="seat">C3</button>
+                                    <button class="seat">C4</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="seat-row">
+                            <div class="seat-row-code">D</div>
+                            <div class="seats">
+                                <div>
+                                    <button class="seat">D1</button>
+                                    <button class="seat">D2</button>
+                                </div>
+                                <div>
+                                    <button class="seat">D3</button>
+                                    <button class="seat">D4</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="seat-row">
+                            <div class="seat-row-code">E</div>
+                            <div class="seats">
+                                <div>
+                                    <button class="seat">E1</button>
+                                    <button class="seat">E2</button>
+                                </div>
+                                <div>
+                                    <button class="seat">E3</button>
+                                    <button class="seat">E4</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="seat-row">
+                            <div class="seat-row-code">F</div>
+                            <div class="seats">
+                                <div>
+                                    <button class="seat">F1</button>
+                                    <button class="seat">F2</button>
+                                </div>
+                                <div>
+                                    <button class="seat">F3</button>
+                                    <button class="seat">F4</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="seat-row">
+                            <div class="seat-row-code">G</div>
+                            <div class="seats">
+                                <div>
+                                    <button class="seat">G1</button>
+                                    <button class="seat">G2</button>
+                                </div>
+                                <div>
+                                    <button class="seat">G3</button>
+                                    <button class="seat">G4</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="seat-row">
+                            <div class="seat-row-code">H</div>
+                            <div class="seats">
+                                <div>
+                                    <button class="seat">H1</button>
+                                    <button class="seat">H2</button>
+                                </div>
+                                <div>
+                                    <button class="seat">H3</button>
+                                    <button class="seat">H4</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="seat-row">
+                            <div class="seat-row-code">I</div>
+                            <div class="seats">
+                                <div>
+                                    <button class="seat">I1</button>
+                                    <button class="seat">I2</button>
+                                </div>
+                                <div>
+                                    <button class="seat">I3</button>
+                                    <button class="seat">I4</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="seat-row">
+                            <div class="seat-row-code">J</div>
+                            <div class="seats">
+                                <div>
+                                    <button class="seat">J1</button>
+                                    <button class="seat">J2</button>
+                                </div>
+                                <div>
+                                    <button class="seat">J3</button>
+                                    <button class="seat">J4</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Info -->
+                <div class="flex-grow">
+                    <h4
+                        class="text-xl font-semibold underline underline-offset-4 mb-5"
+                    >
+                        Your Ticket Information
+                    </h4>
+
+                    <div class="bg-[#F7F8F8] p-3 rounded-md mb-6 w-full">
+                        <div
+                            class="flex justify-between pb-3 mb-3 border-b border-dashed border-[#03071233]"
+                        >
+                            <p class="font-semibold">
+                                Seat
+                                <sup
+                                    id="selectedSeatCount"
+                                    class="px-2 bg-[#1DD100] text-white rounded-3xl"
+                                    >0</sup
+                                >
+                            </p>
+                            <p class="font-semibold">Class</p>
+                            <p class="font-semibold">Price</p>
+                        </div>
+
+                        <div
+                            id="selectedSeatContainer"
+                            class="space-y-3 border-b-2 border-[#03071233] pb-3 mb-3 overflow-x-auto h-[75px]"
+                        >
+                            <!-- <div class="flex justify-between">
+                                <p class="text-[#03071299]">C2</p>
+                                <p class="text-[#03071299]">Economy</p>
+                                <p class="text-[#03071299]">550</p>
+                            </div>
+                            <div class="flex justify-between">
+                                <p class="text-[#03071299]">C2</p>
+                                <p class="text-[#03071299]">Economy</p>
+                                <p class="text-[#03071299]">550</p>
+                            </div> -->
+                        </div>
+
+                        <div class="flex justify-between font-semibold mb-3">
+                            <p>Total Price</p>
+                            <p>BDT <span class="totalPrice">0</span></p>
+                        </div>
+                    </div>
+
+                    <form id="purchaseTicket" class="flex-grow text-sm">
+                        <div class="mb-4">
+                            <label
+                                class="block text-gray-700 font-semibold mb-2"
+                                for="name"
+                                >Full Name *</label
+                            >
+                            <input
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                name="fullName"
+                                type="text"
+                                placeholder="Enter your full name"
+                                required
+                            />
+                        </div>
+
+                        <div class="mb-4">
+                            <label
+                                class="block text-gray-700 font-semibold mb-2"
+                                for="email"
+                                >Mobile Number *</label
+                            >
+                            <input
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                name="number"
+                                type="number"
+                                placeholder="Enter your Phone Number"
+                            />
+                        </div>
+
+                        <div class="mb-4">
+                            <label
+                                class="block text-gray-700 font-semibold mb-2 max-w-[348px]"
+                                for="email"
+                                >Send <span class="totalPrice">0</span> tk to
+                                <span class="font-bold">+8801700000000</span>
+                                via <span class="font-bold">BKash</span> and
+                                Enter the Transaction ID below *</label
+                            >
+                            <input
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                name="txId"
+                                type="text"
+                                placeholder="Enter your Transaction ID"
+                            />
+                        </div>
+
+                        <p
+                            id="error"
+                            class="text-red-600 mb-2 text-center font-semibold italic"
+                            hidden
+                        >
+                            Error
+                        </p>
+
+                        <!-- Submit and Clear Buttons -->
+                        <div class="flex space-x-4">
+                            <button
+                                type="reset"
+                                id="clearButton"
+                                class="w-full bg-red-500 text-white py-2 px-4 rounded-lg font-semibold hover:bg-red-600 active:scale-90 transition duration-300 ease-in-out"
+                            >
+                                Clear
+                            </button>
+                            <button
+                                type="submit"
+                                class="w-full bg-blue-500 text-white py-2 px-4 rounded-lg font-semibold hover:bg-blue-600 active:scale-90 transition duration-300 ease-in-out"
+                            >
+                                Book Ticket
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Section -->
+        <dialog
+            id="checkoutModal"
+            class="p-8 bg-white rounded-lg shadow-lg max-w-md w-full"
+        >
+            <h3
+                class="text-xl font-bold mb-4 text-gray-800 underline underline-offset-4"
+            >
+                Checkout Information
+            </h3>
+            <div id="checkoutInfo" class="mb-6">
+                <!-- Checkout Information will be populated here -->
+            </div>
+            <div class="flex justify-center space-x-4">
+                <button
+                    id="closeBtn"
+                    class="bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-600 active:scale-90 transition duration-300 ease-in-out"
+                >
+                    Close
+                </button>
+                <button
+                    id="printBtn"
+                    class="bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600 active:scale-90 transition duration-300 ease-in-out"
+                >
+                    Print
+                </button>
+            </div>
+        </dialog>
+    </body>
+</html>

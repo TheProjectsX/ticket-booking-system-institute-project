@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Ticket History - 6CST/A2 Project</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+    </head>
+    <body class="flex justify-center items-center h-screen bg-gray-100 py-5">
+        <div
+            class="container px-4 py-10 rounded-xl shadow-lg bg-white max-w-2xl w-full"
+        >
+            <h3
+                class="text-2xl font-bold text-center mb-6 text-gray-800 underline underline-offset-4"
+            >
+                Your Ticket History
+            </h3>
+
+            <div class="relative overflow-x-auto">
+                <table
+                    class="w-full text-sm text-left rtl:text-right text-gray-500"
+                >
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                        <tr>
+                            <th scope="col" class="px-6 py-3">Name</th>
+                            <th scope="col" class="px-6 py-3">Phone</th>
+                            <th scope="col" class="px-6 py-3">Route</th>
+                            <th scope="col" class="px-6 py-3">Date</th>
+                            <th scope="col" class="px-6 py-3">Time</th>
+                            <th scope="col" class="px-6 py-3">Seats</th>
+                            <th scope="col" class="px-6 py-3">Price</th>
+                        </tr>
+                    </thead>
+                    <tbody id="historyBody"></tbody>
+                </table>
+            </div>
+        </div>
+    </body>
+
+    <script>
+        const elm_historyBody = document.getElementById("historyBody");
+        const savedData = JSON.parse(localStorage.getItem("ticket"));
+        if (savedData) {
+            elm_historyBody.innerHTML += `<tr class="bg-white border-b">
+                            <th
+                                scope="row"
+                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
+                            >
+            ${savedData.fullName}
+                            </th>
+                            <td class="px-6 py-4">${savedData.number}</td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                            ${savedData.from} - ${savedData.to}
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                ${savedData.date}
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                ${savedData.time}
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">${savedData.seats}</td>
+                            <td class="px-6 py-4 whitespace-nowrap">${savedData.total}</td>
+                        </tr>`;
+        }
+    </script>
+</html>
