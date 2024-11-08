@@ -56,25 +56,24 @@
         class="flex justify-center items-center min-h-screen bg-gray-100 py-5 px-4"
     >
         <div
-            class="container p-4 rounded-xl shadow-lg bg-white max-w-lg w-full hidden"
+            id="findTicketsContainer"
+            class="p-4 rounded-xl shadow-lg bg-white w-full md:min-w-lg max-w-3xl md:w-full flex items-center flex-col gap-6"
         >
             <!-- Search for Locations -->
-            <form onsubmit="this.preventDefault()" id="findTickets">
+            <form id="findTickets">
                 <h3
                     class="text-2xl font-bold text-center mb-6 text-gray-800 underline underline-offset-4"
                 >
                     Find your Tickets
                 </h3>
                 <div class="mb-4">
-                    <label
-                        class="block text-gray-700 font-semibold mb-2"
-                        for="name"
+                    <label class="block text-gray-700 font-semibold mb-2"
                         >Choose your Destination</label
                     >
-                    <div class="flex justify-center gap-4">
+                    <div class="flex justify-center flex-wrap gap-4">
                         <select
                             class="px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            id="from"
+                            name="departure"
                             title="From where you will depart"
                             required
                         >
@@ -89,7 +88,7 @@
 
                         <select
                             class="px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            id="to"
+                            name="destination"
                             title="Your destination"
                             required
                         >
@@ -107,20 +106,46 @@
                         </select>
 
                         <button
-                            type="button"
-                            class="outline-none border-none px-4 bg-[dodgerBlue] text-white rounded-lg font-medium active:scale-95 transition-transform text-center"
+                            type="submit"
+                            class="outline-none border-none px-4 py-2 bg-[dodgerBlue] text-white rounded-lg font-medium active:scale-95 transition-transform text-center"
                         >
                             Find
                         </button>
                     </div>
                 </div>
             </form>
+
+            <!-- Show Buss -->
+            <div
+                id="showBussContainer"
+                class="flex flex-col items-center gap-4"
+            >
+                <!-- <button
+                    class="selectBus flex flex-col shadow-lg border-2 border-[dodgerBlue] w-96 p-4 rounded-lg active:scale-95 transition-transform duration-200 ease-in-out"
+                    data-route=""
+                    data-date=""
+                    data-time=""
+                >
+                    <h4 class="flex justify-between w-full">
+                        <span class="font-semibold">Route:</span>
+                        <span>Rangpur-Dhaka</span>
+                    </h4>
+                    <p class="flex justify-between w-full">
+                        <span class="font-semibold">Time:</span>
+                        <span>09:44PM</span>
+                    </p>
+                    <p class="flex justify-between w-full">
+                        <span class="font-semibold">Date:</span>
+                        <span>Some Date it is</span>
+                    </p>
+                </button> -->
+            </div>
         </div>
 
         <!-- Purchasing Ticket-->
         <div
             id="purchaseTicketContainer"
-            class="md:min-w-lg max-w-3xl md:w-full flex flex-col items-center"
+            class="md:min-w-lg max-w-3xl md:w-full hidden flex-col items-center"
         >
             <div class="p-4 rounded-xl shadow-lg bg-white w-full mb-5">
                 <div class="bg-[#F7F8F8] p-3 rounded-md mb-6">
@@ -357,7 +382,7 @@
                         <div class="mb-4">
                             <label
                                 class="block text-gray-700 font-semibold mb-2"
-                                for="name"
+                                for="fullName"
                                 >Full Name *</label
                             >
                             <input
@@ -372,7 +397,7 @@
                         <div class="mb-4">
                             <label
                                 class="block text-gray-700 font-semibold mb-2"
-                                for="email"
+                                for="number"
                                 >Mobile Number *</label
                             >
                             <input
@@ -386,7 +411,7 @@
                         <div class="mb-4">
                             <label
                                 class="block text-gray-700 font-semibold mb-2 max-w-[348px]"
-                                for="email"
+                                for="txId"
                                 >Send <span class="totalPrice">0</span> tk to
                                 <span class="font-bold">+8801700000000</span>
                                 via <span class="font-bold">BKash</span> and
