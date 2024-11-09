@@ -210,7 +210,7 @@ elm_purchaseTicketForm.addEventListener("submit", (e) => {
 elm_modalCloseBtn.addEventListener("click", () => {
     elm_modal.close();
     clearEvr();
-    window.location = "/history.html";
+    window.location = "./history.html";
 });
 
 elm_printBtn.addEventListener("click", () => {
