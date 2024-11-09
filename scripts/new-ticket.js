@@ -52,6 +52,10 @@ const findTicketHTML = `<button
                         <span class="font-semibold">Date:</span>
                         <span>$Date</span>
                     </p>
+                    <p class="flex justify-between w-full">
+                        <span class="font-semibold">Price:</span>
+                        <span>${seatPrice} tk</span>
+                    </p>
                 </button>`;
 
 const selectedSeatHTML = `<div class="flex justify-between">
